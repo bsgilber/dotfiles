@@ -214,6 +214,38 @@ then
 fi
 
 ###################################################
+# udfs
+###################################################
+redis_up()
+{
+	redis-server /usr/local/etc/redis.conf
+}
+
+git-squash()
+{
+	git checkout $1
+	git reset $(git merge-base master $(git rev-parse --abbrev-ref HEAD))
+	git add -A
+ }
+
+git-fucked()
+{
+    black .
+	git add *
+	git commit -m "automated commit; squash me"
+	git push
+}
+
+kinesis-reader()
+{
+  aws kinesis describe-stream --stream-name $1 --output text | grep SHARDS | awk '{print $2}' | while read shard; do aws kinesis get-shard-iterator --stream-name $1 --shard-id $shard --shard-iterator-type LATEST --output text | while read iterator; do while output=`aws kinesis get-records --shard-iterator $iterator --output text`; do iterator=`echo "$output" | head -n1 | awk '{print $2}'`; echo "$output" | awk 'NR > 1' | grep RECORDS | while read record; do echo $record | awk '{print $3}' | base64 -d; done; done; done; done
+}
+
+docker-clean(){
+  docker system prune -f
+}
+
+###################################################
 # sdkman
 ###################################################
 export SDKMAN_DIR="/Users/gilbert/.sdkman"
