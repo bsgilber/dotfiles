@@ -6,10 +6,10 @@ set -e
 tools="
     tmux
     pyenv
-    kubectl
     exa
     node
     npm
+    nvm
     ctags
     bat
     openjdk
@@ -20,13 +20,14 @@ tools="
     pandoc
     shellcheck
     k9s
+    rename
     gh
     tmux-mem-cpu-load
     mongodb-community
     mongodb-compass
     dbeaver-community
     kitty
-    keeper-password-manager
+    bitwarden
     docker
     r
     rstudio
@@ -34,13 +35,22 @@ tools="
     spotify
     visual-studio-code
     shfmt
-    scala
-    sbt
     htop
     dbt
     terraform
     redis
+    go-migrate
+    nodenv
+    git-lfs
+    pulumi/tap/pulumi
+    ripgrep
+    tflint
     minikube
+    dbt-bigquery
+    postgresql
+    ngrok
+    yarn
+    fzf
 "
 
 for tool in $tools; do
